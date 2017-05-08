@@ -1,0 +1,6 @@
+C:\Users\rebmid\OneDrive\GITHUB\Headtrax\Headtrax\bin\Debug\Headtrax.exe.config
+C:\Users\rebmid\OneDrive\GITHUB\Headtrax\Headtrax\bin\Debug\Headtrax.exe
+C:\Users\rebmid\OneDrive\GITHUB\Headtrax\Headtrax\bin\Debug\Headtrax.pdb
+C:\Users\rebmid\OneDrive\GITHUB\Headtrax\Headtrax\obj\Debug\Headtrax.csprojResolveAssemblyReference.cache
+C:\Users\rebmid\OneDrive\GITHUB\Headtrax\Headtrax\obj\Debug\Headtrax.exe
+C:\Users\rebmid\OneDrive\GITHUB\Headtrax\Headtrax\obj\Debug\Headtrax.pdb

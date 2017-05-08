@@ -52,9 +52,21 @@ namespace BankProject
                     break;
                 case "2":
                         PrintAllAccounts();
+                        Console.WriteLine("Pick an account number to deposit:");
+                        var accountNum = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Amount to deposit: ");
+                        amount = Convert.ToDecimal(Console.ReadLine());
+                        Bank.Deposit(accountNum, amount);
+                        Console.WriteLine("Deposit successfull");
                         break;
                 case "3":
                         PrintAllAccounts();
+                        Console.WriteLine("Pick an account number to withdraw:");
+                        accountNum = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Amount to withdraw: ");
+                        amount = Convert.ToDecimal(Console.ReadLine());
+                        Bank.Withdraw(accountNum, amount);
+                        Console.WriteLine("Deposit successfull");
                         break;
                     case "4":
                         PrintAllAccounts();
