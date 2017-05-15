@@ -26,6 +26,7 @@ namespace BankProject
             Console.WriteLine("2. Deposit");
             Console.WriteLine("3. Withdraw");
             Console.WriteLine("4. Print all accounts");
+            Console.WriteLine("5. Show All Transactions");
             Console.Write("Please select a choice from above: ");
             var option = Console.ReadLine();
             switch (option)
@@ -70,6 +71,16 @@ namespace BankProject
                         break;
                     case "4":
                         PrintAllAccounts();
+                        break;
+                    case "5":
+                        PrintAllAccounts();
+                        Console.WriteLine("Pick an account number to see transactions:");
+                        accountNum = Convert.ToInt32(Console.ReadLine());
+                        var transactions = Bank.GetAllTransactionsByAccount(accountNum);
+                        foreach (var tran in transactions)
+                        {
+                            Console.WriteLine($"Transactionid: {tran.TransactionId}, Description: {tran.Description}, Amount: {tran.Amount} Type of transaction: {tran.TransactionType}, Date: {tran.TransactionDate}");
+                        }
                         break;
                     default:
                     break;
