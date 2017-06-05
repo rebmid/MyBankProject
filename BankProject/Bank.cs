@@ -42,7 +42,7 @@ namespace BankProject
             db.Transactions.Add(transaction);
             db.SaveChanges();
             return newBalance;
-            
+
         }
         public static decimal Withdraw(int accountNumber, decimal amount)
         {
@@ -67,7 +67,35 @@ namespace BankProject
 
         public static List<Transaction> GetAllTransactionsByAccount(int acccountNumber)
         {
-           return db.Transactions.Where(t => t.AccountNumber == acccountNumber).ToList();
+            return db.Transactions.Where(t => t.AccountNumber == acccountNumber).ToList();
         }
+
+        public static Account GetAccountbyAccountNumber(int id)
+
+        {
+            return db.Accounts.Find(id);
+        }
+
+        public static void EditAccount(Account account)
+        {
+            var oldAccount = db.Accounts.Find(account.AccountNumber);
+            db.Entry(oldAccount).State = System.Data.Entity.EntityState.Modified;
+            oldAccount.TypeOfAccount = account.TypeOfAccount;
+            db.SaveChanges();
+        }
+        
+        public static void DeleteAccount(int id)
+
+        {
+            Account account = db.Accounts.Find(id);
+            db.Accounts.Remove(account);
+            db.SaveChanges();
+        }
+
     }
+
 }
+
+
+    
+

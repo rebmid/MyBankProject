@@ -32,7 +32,7 @@ namespace BankProject
         public string EmailAddress { get; set; }
 
         [Key]
-        public int AccountNumber { get; private set; }
+        public int AccountNumber { get; set; }
 
         public decimal Balance { get; private set; }
 

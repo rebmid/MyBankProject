@@ -21,6 +21,16 @@ namespace BankProjectWeb.Controllers
             return View(Bank.GetAllAccountsByEmailAddress(HttpContext.User.Identity.Name));
         }
 
+        public ActionResult Transactions(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var transactions = Bank.GetAllTransactionsByAccount(id.Value);
+            return View(transactions);
+        }
+
         // GET: Accounts/Details/
         public ActionResult Details(int? id)
         {
@@ -28,7 +38,7 @@ namespace BankProjectWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            Account account = Bank.GetAccountbyAccountNumber(id.Value);
             if (account == null)
             {
                 return HttpNotFound();
@@ -65,7 +75,7 @@ namespace BankProjectWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            Account account = Bank.GetAccountbyAccountNumber(id.Value);
             if (account == null)
             {
                 return HttpNotFound();
@@ -82,8 +92,7 @@ namespace BankProjectWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(account).State = EntityState.Modified;
-                db.SaveChanges();
+                Bank.EditAccount(account);
                 return RedirectToAction("Index");
             }
             return View(account);
@@ -96,7 +105,7 @@ namespace BankProjectWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            Account account = Bank.GetAccountbyAccountNumber(id.Value);
             if (account == null)
             {
                 return HttpNotFound();
@@ -109,9 +118,7 @@ namespace BankProjectWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Account account = db.Accounts.Find(id);
-            db.Accounts.Remove(account);
-            db.SaveChanges();
+            Bank.DeleteAccount(id);
             return RedirectToAction("Index");
         }
 
