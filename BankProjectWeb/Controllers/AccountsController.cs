@@ -13,8 +13,7 @@ namespace BankProjectWeb.Controllers
     public class AccountsController : Controller
     {
         private BankModel db = new BankModel();
-        private readonly object id;
-
+      
         // GET: Accounts
         [Authorize]
         public ActionResult Index()
@@ -23,7 +22,7 @@ namespace BankProjectWeb.Controllers
         }
 
         // GET: Accounts/Details/
-        public ActionResult Details()
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -60,7 +59,7 @@ namespace BankProjectWeb.Controllers
         }
 
         // GET: Accounts/Edit/5
-        public ActionResult Edit()
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -91,7 +90,7 @@ namespace BankProjectWeb.Controllers
         }
 
         // GET: Accounts/Delete/5
-        public ActionResult Delete()
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
