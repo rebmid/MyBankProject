@@ -67,7 +67,7 @@ namespace BankProject
 
         public static List<Transaction> GetAllTransactionsByAccount(int acccountNumber)
         {
-            return db.Transactions.Where(t => t.AccountNumber == acccountNumber).ToList();
+            return db.Transactions.Where(t => t.AccountNumber == acccountNumber).OrderByDescending(t => t.TransactionDate).ToList();
         }
 
         public static Account GetAccountbyAccountNumber(int id)

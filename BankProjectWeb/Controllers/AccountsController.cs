@@ -13,12 +13,58 @@ namespace BankProjectWeb.Controllers
     public class AccountsController : Controller
     {
         private BankModel db = new BankModel();
-      
+
         // GET: Accounts
         [Authorize]
         public ActionResult Index()
         {
             return View(Bank.GetAllAccountsByEmailAddress(HttpContext.User.Identity.Name));
+        }
+
+        public ActionResult Deposit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Account account = Bank.GetAccountbyAccountNumber(id.Value);
+
+            return View(account);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult Withdraw(FormCollection controls)
+        {
+            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
+            var amount = Convert.ToDecimal(controls["Amount"]);
+            Bank.Deposit(accountNumber, amount);
+            return RedirectToAction("Index");
+            
+        }
+
+        public ActionResult Withdraw(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Account account = Bank.GetAccountbyAccountNumber(id.Value);
+
+            return View(account);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult Deposit(FormCollection controls)
+        {
+            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
+            var amount = Convert.ToDecimal(controls["Amount"]);
+            Bank.Deposit(accountNumber, amount);
+            return RedirectToAction("Index");
+
         }
 
         public ActionResult Transactions(int? id)

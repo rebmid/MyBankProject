@@ -29,6 +29,7 @@ namespace BankProject
         /// <summary>
         /// Email Address of the account owner
         /// </summary>
+        [Required]
         public string EmailAddress { get; set; }
 
         [Key]
