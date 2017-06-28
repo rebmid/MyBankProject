@@ -44,11 +44,26 @@ namespace BankProject
             return newBalance;
 
         }
+
+        /// <summary>
+        /// Withdraw Money from the Account
+        /// </summary>
+        /// <param name="accountNumber">Account number</param>
+        /// <param name="amount">Amount to withdraw</param>
+        /// <returns> New balance</returns>
+        /// <exception cref="System.ArgumentException" />
+        /// <exception cref="System.ArgumentOutOfRangeException" />
+        /// <returns></returns>
         public static decimal Withdraw(int accountNumber, decimal amount)
         {
             var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
             if (account == null)
                 throw new ArgumentException("Account not found");
+
+            if (account.Balance < amount)
+            {
+                throw new ArgumentOutOfRangeException("Amount is greater than the balance in the account");
+            }
 
             var newBalance = account.Withdraw(amount);
 

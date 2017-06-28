@@ -37,14 +37,29 @@ namespace BankProjectWeb.Controllers
 
         public ActionResult Withdraw(FormCollection controls)
         {
-            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
-            var amount = Convert.ToDecimal(controls["Amount"]);
-            Bank.Deposit(accountNumber, amount);
-            return RedirectToAction("Index");
-            
-        }
+            try
+            {
+                var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
+                var amount = Convert.ToDecimal(controls["Amount"]);
+                Bank.Withdraw(accountNumber, amount);
+                return RedirectToAction("Index");
+            }
+            catch (ArgumentOutOfRangeException aox)
+            {
+                ViewBag.ErrorMessage = aox.Message; 
+            }
+            catch (ArgumentException ax)
+            {
+                ViewBag.ErrorMessage = ax.Message;
 
-        public ActionResult Withdraw(int? id)
+            }
+
+            return View();
+
+        }
+               
+
+public ActionResult Withdraw(int? id)
         {
             if (id == null)
             {
@@ -95,7 +110,8 @@ namespace BankProjectWeb.Controllers
         // GET: Accounts/Create
         public ActionResult Create()
         {
-            return View();
+            var account = new Account { EmailAddress = HttpContext.User.Identity.Name };
+            return View(account);
         }
 
         // POST: Accounts/Create
@@ -105,6 +121,7 @@ namespace BankProjectWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AccountNumber,EmailAddress,Balance,TypeOfAccount")] Account account)
         {
+            account.EmailAddress = HttpContext.User.Identity.Name;
             if (ModelState.IsValid)
             {
                 Bank.CreateAccount(account.EmailAddress, 0.0M, account.TypeOfAccount);
